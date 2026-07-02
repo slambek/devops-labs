@@ -1,0 +1,10 @@
+services:
+  secure-web:
+    image: nginx:alpine
+    container_name: nginx-https-demo
+    ports:
+      - "80:80"   # Regular HTTP
+      - "443:443" # Secure HTTPS
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro # Mount directory containing SSL/TLS certificates

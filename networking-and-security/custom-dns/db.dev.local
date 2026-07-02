@@ -1,0 +1,15 @@
+$ORIGIN dev.local.
+@ IN SOA dns.dev.local. admin.dev.local. (
+    2026070101 ; Zone serial number
+    3600       ; Refresh
+    1800       ; Retry
+    604800     ; Expire
+    600        ; TTL (10 minutes)
+)
+@   IN NS    dns.dev.local.
+dns IN A     10.50.0.53
+
+; ---- LAB TEST RECORDS ----
+app IN A     10.50.0.10
+www IN CNAME app.dev.local.
+app IN TXT   "verification-token-12345"

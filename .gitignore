@@ -1,0 +1,10 @@
+# Ignore SSL private keys and certificates
+**/certs/nginx.key
+**/certs/nginx.crt
+
+# Ignore logs
+*.log
+**/scripts/*.log
+
+# Ignore OS specific files
+.DS_Store

@@ -1,0 +1,28 @@
+networks:
+  # Create isolated private L3 subnet with /24 mask
+  dev-network:
+    ipam:
+      config:
+        - subnet: 10.50.0.0/24
+
+services:
+  # Local DNS Server (L7, port 53 UDP)
+  custom-dns:
+    image: coredns/coredns:latest
+    container_name: local-coredns
+    networks:
+      dev-network:
+        ipv4_address: 10.50.0.53 # Static IP assignment within the subnet
+    volumes:
+      - ./Corefile:/Corefile
+      - ./db.dev.local:/db.dev.local
+    ports:
+      - "1053:53/udp" # Expose UDP port to host machine for testing
+
+  # Test application backend referenced by the domain
+  test-app:
+    image: nginx:alpine
+    container_name: test-app-backend
+    networks:
+      dev-network:
+        ipv4_address: 10.50.0.10
